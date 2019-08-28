@@ -28,13 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
+            this.joinChat = new System.Windows.Forms.Button();
+            this.makeChat = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            this.SuspendLayout();
+            // 
+            // joinChat
+            // 
+            this.joinChat.BackgroundImage = global::socketChat.Properties.Resources.joinChatBtn;
+            this.joinChat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.joinChat.CausesValidation = false;
+            this.joinChat.Location = new System.Drawing.Point(439, 342);
+            this.joinChat.Name = "joinChat";
+            this.joinChat.Size = new System.Drawing.Size(215, 63);
+            this.joinChat.TabIndex = 2;
+            this.joinChat.UseVisualStyleBackColor = true;
+            this.joinChat.Click += new System.EventHandler(this.joinChat_Click);
+            // 
+            // makeChat
+            // 
+            this.makeChat.BackgroundImage = global::socketChat.Properties.Resources.makechatBtn;
+            this.makeChat.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.makeChat.CausesValidation = false;
+            this.makeChat.Location = new System.Drawing.Point(100, 342);
+            this.makeChat.Name = "makeChat";
+            this.makeChat.Size = new System.Drawing.Size(215, 63);
+            this.makeChat.TabIndex = 1;
+            this.makeChat.UseVisualStyleBackColor = true;
+            this.makeChat.Click += new System.EventHandler(this.makeChat_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(246, 39);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(296, 248);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 0;
+            this.pictureBox1.TabStop = false;
+            this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
+            // 
+            // Form1
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "Form1";
+            this.Controls.Add(this.joinChat);
+            this.Controls.Add(this.makeChat);
+            this.Controls.Add(this.pictureBox1);
+            this.Name = "Form1";
+            this.Text = "소켓채팅프로그램";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            this.ResumeLayout(false);
+
         }
 
         #endregion
+
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Button makeChat;
+        private System.Windows.Forms.Button joinChat;
     }
 }
 

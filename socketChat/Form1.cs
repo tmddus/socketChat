@@ -16,5 +16,22 @@ namespace socketChat
         {
             InitializeComponent();
         }
+
+        private void pictureBox1_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void makeChat_Click(object sender, EventArgs e)
+        {
+            serverForm serverF = new serverForm();
+            serverF.ShowDialog();
+        }
+
+        private void joinChat_Click(object sender, EventArgs e)
+        {
+            clientForm clientForm = new clientForm();
+            clientForm.ShowDialog();
+        }
     }
 }
