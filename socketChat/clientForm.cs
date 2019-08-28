@@ -21,10 +21,7 @@ namespace socketChat
         string data;
         string myIp_str;
         string cliName;
-        string sevName;
-
-
-
+        Thread thread;
 
         public clientForm()
         {
@@ -49,7 +46,7 @@ namespace socketChat
             chatArea.Items.Add(IPLb.Text + " : " + PortLb.Text +  "서버에 연결이 되었습니다");
             isConn = true;
 
-            Thread thread = new Thread(do_receive);
+            thread = new Thread(do_receive);
             thread.Start();
 
            
@@ -68,7 +65,16 @@ namespace socketChat
                     if (data.IndexOf("<eof>") > -1)
                         break;
                 }
+
                 data = data.Substring(0, data.Length - 5);
+
+                if (data.Contains("<exit>"))
+                {
+                    isConn = false;
+                    chatArea.Items.Add(data.Replace("<exit>", ""));
+                    break;
+                }
+
                 Invoke((MethodInvoker)delegate
                 {
                     chatArea.Items.Add(data);
@@ -77,9 +83,6 @@ namespace socketChat
                 data = "";
             }
         }
-
-
-
 
 
         private string getMyIp() // 현재 pc의 아이피를 구하는 메서드
@@ -107,12 +110,33 @@ namespace socketChat
                 MessageBox.Show("서버에 연결되지 않았습니다");
                 return;
             }
-            string send_msg = cliName + " : " + chatMsg.Text + "<eof>";
-            byte[] chat = Encoding.UTF8.GetBytes(send_msg);
+            string send_msg = cliName + " : " + chatMsg.Text;
+            byte[] chat = Encoding.UTF8.GetBytes(send_msg + "<eof>");
             int sendInt = client.Send(chat);
             chatMsg.Clear();
-
+            
             chatArea.Items.Add(send_msg);
+        }
+
+        private void changeName_Click(object sender, EventArgs e)
+        {
+            string chName = myName.Text; // 바뀐 이름 폼에서 가져옴
+            byte[] chat = Encoding.UTF8.GetBytes("<changeName>" + chName + "<eof>");
+            int sendInt = client.Send(chat);
+            //바뀐이름 서버로 전송
+
+            chatArea.Items.Add(cliName + "님이 " + chName + "으로 변경하셨습니다");
+            cliName = chName;
+        }
+
+        private void exitBtn_Click(object sender, EventArgs e)
+        {
+            byte[] chat = Encoding.UTF8.GetBytes("<exit>" + cliName + "님이 떠났습니다" + "<eof>");
+            int sendInt = client.Send(chat);
+
+            isConn = false;
+            Application.ExitThread();
+            Application.Exit();
         }
     }
 }
